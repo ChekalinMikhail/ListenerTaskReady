@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class Listener implements IListenProfModules {
 
-    public static IListenProfModules INSTANCE = new Listener();
+    public static final IListenProfModules INSTANCE = new Listener();
 
     private Listener() {}
 

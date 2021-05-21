@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class PartNumberGenerator {
 
-    public static PartNumberGenerator INSTANCE = new PartNumberGenerator();
+    public static final PartNumberGenerator INSTANCE = new PartNumberGenerator();
     private final static HashMap<Long, AtomicInteger> controlMap = new HashMap<>();
 
     private PartNumberGenerator() { }
