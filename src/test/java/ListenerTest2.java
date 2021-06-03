@@ -111,9 +111,6 @@ public class ListenerTest2 extends Assert {
         createParts(module2Parts, modules.get(1), 2);
         createParts(module2Parts, modules.get(2), 3);
         createParts(module2Parts, modules.get(3), 2);
-//        createParts(module2Parts, modules.get(5), 1);
-//        createParts(module2Parts, modules.get(6), 0);
-
 
         //elements
         HashMap<EppRegistryElement, List<EppRegistryElementPart>> elem2Parts = new HashMap<>(modules.size());
@@ -144,13 +141,6 @@ public class ListenerTest2 extends Assert {
         Collection<MainBond> mainBonds = new ArrayList<>(modules.size());
         HashMap<EppRegistryProfModule, Collection<EppRegistryElement>> moduleToRegElements = new HashMap<>(modules.size());
         moduleToRegElements.put(modules.get(0), List.of(eppRegistryElements.get(3), eppRegistryElements.get(6), eppRegistryElements.get(7), eppRegistryElements.get(8)));
-//        moduleToRegElements.put(modules.get(1), eppRegistryElements.subList(4, 8));
-//        moduleToRegElements.put(modules.get(2), eppRegistryElements.subList(4, 8));
-//        moduleToRegElements.put(modules.get(3), eppRegistryElements.subList(4, 8));
-//        moduleToRegElements.put(modules.get(4), eppRegistryElements.subList(4, 8));
-//        moduleToRegElements.put(modules.get(5), eppRegistryElements.subList(4, 8));
-//        moduleToRegElements.put(modules.get(6),  eppRegistryElements.subList(4, 8));
-
 
         //module to its bonds
         HashMap<EppRegistryProfModule, Collection<MainBond>> profModuleToBonds = new HashMap<>();
@@ -165,10 +155,8 @@ public class ListenerTest2 extends Assert {
         parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(3), module2Parts, elem2Parts, profModuleToBonds, "1/2", "2/1"));
         parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(6), module2Parts, elem2Parts, profModuleToBonds, "1/2", "2/3"));
 
-
         return new TestDataWrapper(module2Parts, elem2Parts, parts2Parts, mainBonds);
     }
-
 
 
     @Test
