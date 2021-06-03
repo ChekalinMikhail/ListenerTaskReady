@@ -86,6 +86,7 @@ public class Listener implements IListenProfModules {
      * Если распределены не все части EppRegistryElement, либо нарушен порядок распределения, метод кидает IllegalStateException.
      */
     private void incompleteOrInvalidDistribution(EppRegistryProfModule profModule, EppRegistryElement element, List<EppRegistryElementPart> regElementParts, Collection<Part2PartBond> part2PartBonds) throws IllegalStateException {
+
         if (regElementParts.size() == 0)
             return;
 
