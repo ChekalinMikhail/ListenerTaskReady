@@ -90,16 +90,22 @@ public class Listener implements IListenProfModules {
         if (regElementParts.size() == 0)
             return;
 
-        var elementPartsDistr = part2PartBonds.stream()
+        var bondsForCurrentModuleAndElement = part2PartBonds.stream()
                 .filter(bond -> (bond.getElementPart().getParent().equals(element)))
-                .map(Part2PartBond::getModulePart)
                 .collect(Collectors.toList());
 
-        if (elementPartsDistr.size() != regElementParts.size())
+        if (bondsForCurrentModuleAndElement.size() != regElementParts.size())
             throw new IllegalStateException(String.format("Нельзя согласовать профмодуль %s, т.к. распределены не все части вложенных элементов.", profModule.getTitle()));
 
-        for (int i = 1; i < elementPartsDistr.size(); i++) {
-            if (elementPartsDistr.get(i - 1).getNumber() > elementPartsDistr.get(i).getNumber())
+        //проверяем порядок частей модуля
+        for (int i = 1; i < bondsForCurrentModuleAndElement.size(); i++) {
+            if (bondsForCurrentModuleAndElement.get(i - 1).getElementPart().getNumber() > bondsForCurrentModuleAndElement.get(i).getElementPart().getNumber())
+                throw new IllegalStateException(String.format("Нельзя согласовать профмодуль %s, т.к. части вложенного мероприятия %s распределены в неправильном порядке.", profModule.getTitle(), element.getTitle()));
+        }
+
+        //проверяем порядок частей элемента
+        for (int i = 1; i < bondsForCurrentModuleAndElement.size(); i++) {
+            if (bondsForCurrentModuleAndElement.get(i - 1).getModulePart().getNumber() > bondsForCurrentModuleAndElement.get(i).getModulePart().getNumber())
                 throw new IllegalStateException(String.format("Нельзя согласовать профмодуль %s, т.к. части вложенного мероприятия %s распределены в неправильном порядке.", profModule.getTitle(), element.getTitle()));
         }
     }
