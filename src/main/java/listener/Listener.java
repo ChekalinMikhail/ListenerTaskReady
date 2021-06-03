@@ -86,13 +86,13 @@ public class Listener implements IListenProfModules {
      * Если распределены не все части EppRegistryElement, либо нарушен порядок распределения, метод кидает IllegalStateException.
      */
     private void incompleteOrInvalidDistribution(EppRegistryProfModule profModule, EppRegistryElement element, List<EppRegistryElementPart> regElementParts, Collection<Part2PartBond> part2PartBonds) throws IllegalStateException {
+        if (regElementParts.size() == 0)
+            return;
+
         var elementPartsDistr = part2PartBonds.stream()
                 .filter(bond -> (bond.getElementPart().getParent().equals(element)))
                 .map(Part2PartBond::getModulePart)
                 .collect(Collectors.toList());
-
-        if (elementPartsDistr.get(0) == null)
-            return;
 
         if (elementPartsDistr.size() != regElementParts.size())
             throw new IllegalStateException(String.format("Нельзя согласовать профмодуль %s, т.к. распределены не все части вложенных элементов.", profModule.getTitle()));
