@@ -82,7 +82,7 @@ public class ListenerTest2 extends Assert {
         });
 
         List<Part2PartBond> parts2Parts = new ArrayList<>();
-        parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(0), module2Parts, elem2Parts, profModuleToBonds, "1/1", "2/2"));
+        parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(0), module2Parts, elem2Parts, profModuleToBonds, "2/2", "1/1"));
         parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(1), module2Parts, elem2Parts, profModuleToBonds, "1/1", "2/2", "3/4"));
         parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(2), module2Parts, elem2Parts, profModuleToBonds, "1/4", "2/2", "3/3", "4/1"));
         parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(3), module2Parts, elem2Parts, profModuleToBonds, "1/2", "2/1", "3/4"));
