@@ -23,8 +23,9 @@ public class Listener implements IListenProfModules {
 
     @Override
     public boolean onEvent(Map<EppRegistryProfModule, List<EppRegistryElementPart>> profModules, Map<EppRegistryElement, List<EppRegistryElementPart>> regElements, Collection<MainBond> mainBonds, Collection<Part2PartBond> part2PartBonds) throws IllegalStateException {
-        //TODO implement me
         //проверяем все ли elements не ниже по уровню состояния со связанными profModules
+
+        //TODO think about how can you group the data in the very beginning to avoid to many iterations. (just think, do not implement)
         profModules.keySet()
                 .forEach(profModule -> elementStateLvl(profModule, mainBonds));
 
@@ -49,6 +50,7 @@ public class Listener implements IListenProfModules {
         if (profModule.getState().equals(EppState.Acceptable))
             requiredStates.add(EppState.Acceptable);
 
+        //TODO invert matching condition. By that, you'll improve readability of your code.
         if (mainBonds.stream()
                 .filter(bond -> bond.getModule().equals(profModule))
                 .map(MainBond::getElement)
@@ -57,9 +59,20 @@ public class Listener implements IListenProfModules {
     }
 
     /**
+     * TODO Rename the method. The name of the method in clean code is always supposed to give a reader some idea about
+     * TODO what this method actually does.
+     * TODO My hint here is: element -> isStateAcceptable(EppRegistryElement element, List<EppState> requiredStates)
      * Вспомогательный метод для elementStateLvl, определяет что состояние element не ниже уровнем чем у связанного с ним profModule.
      */
     private boolean checkingStates(EppRegistryElement element, List<EppState> requiredStates) {
+        //TODO Well done, checking states is available for extension.
+        //TODO Let's say on some day the product manager will decide to check not only Accepted and Acceptable, but also Declined.
+        //TODO You can achieve this by simply putting another state in your "requiredStates" param.
+
+        //TODO One noteworthy thing here: do not try to impress somebody by using lambda expression where it's not really needed.
+        //TODO You could simply use:  requiredStates.contains(element.getState());
+        //TODO Remember that any lambda is a anonymous class object in JVM with it's own overheads impacting your code performance.
+
         return requiredStates.stream()
                 .anyMatch(requiredState -> requiredState.equals(element.getState()));
     }
@@ -74,6 +87,7 @@ public class Listener implements IListenProfModules {
 
         int maxNumberOfParts = profModuleParts.get(profModuleParts.size() - 1).getNumber();
 
+        //TODO ! + allMatch => why not use "anyMatch" without "!"?. Try to inverse the condition.
         if (!mainBonds.stream()
                 .filter(bond -> bond.getModule().equals(profModule))
                 .map(MainBond::getElement)
@@ -95,6 +109,7 @@ public class Listener implements IListenProfModules {
                 .sorted(Comparator.comparingInt((Part2PartBond bond) -> bond.getModulePart().getNumber()))
                 .collect(Collectors.toList());
 
+        //TODO why does your code throw the same exception in 2 different places? Try to avoid repeating yourself. Are there any options to do that?
         if (bondsForCurrentModuleAndElement.size() != regElementParts.size())
             throw new IllegalStateException(String.format("Нельзя согласовать профмодуль %s, т.к. распределены не все части вложенных элементов.", profModule.getTitle()));
 
