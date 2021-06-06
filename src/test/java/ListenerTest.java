@@ -113,7 +113,6 @@ public class ListenerTest extends Assert {
         createParts(module2Parts, modules.get(1), 2);
         createParts(module2Parts, modules.get(2), 3);
         createParts(module2Parts, modules.get(3), 2);
-//        createParts(module2Parts, modules.get(4), 0);
 
         //elements
         HashMap<EppRegistryElement, List<EppRegistryElementPart>> elem2Parts = new HashMap<>(modules.size());
@@ -134,7 +133,7 @@ public class ListenerTest extends Assert {
         }};
 
         //RegElements
-        createParts(elem2Parts, eppRegistryElements.get(3), 0);
+        createParts(elem2Parts, eppRegistryElements.get(3), 2);
         createParts(elem2Parts, eppRegistryElements.get(6), 2);
         createParts(elem2Parts, eppRegistryElements.get(7), 4);
         createParts(elem2Parts, eppRegistryElements.get(8), 0);
@@ -143,7 +142,7 @@ public class ListenerTest extends Assert {
         //relations
         Collection<MainBond> mainBonds = new ArrayList<>(modules.size());
         HashMap<EppRegistryProfModule, Collection<EppRegistryElement>> moduleToRegElements = new HashMap<>(modules.size());
-        moduleToRegElements.put(modules.get(1), List.of(eppRegistryElements.get(3)));
+        moduleToRegElements.put(modules.get(0), List.of(eppRegistryElements.get(3), eppRegistryElements.get(6), eppRegistryElements.get(7), eppRegistryElements.get(8)));
 
         //module to its bonds
         HashMap<EppRegistryProfModule, Collection<MainBond>> profModuleToBonds = new HashMap<>();
@@ -155,8 +154,8 @@ public class ListenerTest extends Assert {
         });
 
         List<Part2PartBond> parts2Parts = new ArrayList<>();
-//        parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(3), module2Parts, elem2Parts, profModuleToBonds, "1/2", "2/1"));
-//        parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(6), module2Parts, elem2Parts, profModuleToBonds, "1/2", "2/3"));
+        parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(3), module2Parts, elem2Parts, profModuleToBonds, "1/2", "2/1"));
+        parts2Parts.addAll(createPart2Part(modules.get(0), eppRegistryElements.get(6), module2Parts, elem2Parts, profModuleToBonds, "1/2", "2/3"));
 
         return new TestDataWrapper(module2Parts, elem2Parts, parts2Parts, mainBonds);
     }
